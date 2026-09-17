@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pedidos_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pedidos_user
+      POSTGRES_PASSWORD: pedidos_pass
+      POSTGRES_DB: pedidos_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pedidos_user -d pedidos_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  pedidos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pedidos_api
+    restart: unless-stopped
+    environment:
+      APP_NAME: API Pedidos
+      APP_ENV: production
+      DATABASE_URL: postgresql+psycopg2://pedidos_user:pedidos_pass@postgres:5432/pedidos_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
