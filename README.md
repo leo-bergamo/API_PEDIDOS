@@ -1,10 +1,16 @@
 # API Pedidos
 
 API REST para gerenciamento de **Clientes**, **Produtos** e **Pedidos**, desenvolvida com **FastAPI** e **PostgreSQL**, totalmente containerizada com Docker.
+Desenvolvido como projeto acadêmico durante a graduação.
 
 ## Integrantes do grupo
 
+- Leonardo Bergamo
 - Cauã Petras
+- Davi Affonso
+- Gustavo Rossi
+- Larissa Barbosa
+- Samuel Frazão
 
 ## Tecnologias utilizadas
 
